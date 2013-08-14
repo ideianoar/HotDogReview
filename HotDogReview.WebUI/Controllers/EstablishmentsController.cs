@@ -36,6 +36,8 @@ namespace HotDogReview.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Establishment establishment)
         {
+            establishment.CreatedDateTime = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Establishments.Add(establishment);

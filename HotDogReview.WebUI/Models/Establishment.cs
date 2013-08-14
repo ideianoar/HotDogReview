@@ -24,6 +24,7 @@ namespace HotDogReview.WebUI.Models
         public bool IsVegan { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
+        public string Address { get; set; }
     
         public virtual ICollection<Review> Reviews { get; set; }
     }
