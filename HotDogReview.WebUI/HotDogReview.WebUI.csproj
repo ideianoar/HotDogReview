@@ -158,7 +158,9 @@
     <Compile Include="Models\Review.cs">
       <DependentUpon>HotDogReviewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Review.Custom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\NewEstablishmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\HotDogReview.sdf" />
@@ -241,6 +243,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.raty.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -251,6 +254,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Img\star-half.png" />
+    <Content Include="Img\star-off.png" />
+    <Content Include="Img\star-on.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -269,9 +275,7 @@
     <Content Include="Views\Establishments\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

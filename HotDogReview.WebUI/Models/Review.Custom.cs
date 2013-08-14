@@ -14,7 +14,14 @@ namespace HotDogReview.WebUI.Models
 
 	public class ReviewMetadata
 	{
-		public double Rating { get; set; }
+		[Display(Name="Nota da Avaliação")]
+		[Required(ErrorMessage="Informe uma nota de avaliação para o HotDog")]
+		public short Rating { get; set; }
+
+		[Display(Name="Comentário")]
+		[Required(ErrorMessage="Informe um comentário sobre a avaliação do HotDog")]
+		[StringLength(1000, ErrorMessage="O campo Comentário possui mais que 1000 caracteres")]
+		[DataType(DataType.MultilineText)]
 		public string ReviewText { get; set; }
 	}
 }

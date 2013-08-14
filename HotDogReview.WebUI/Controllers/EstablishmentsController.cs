@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using HotDogReview.Core.Geocoding;
 using HotDogReview.WebUI.Models;
+using HotDogReview.WebUI.ViewModels;
 
 namespace HotDogReview.WebUI.Controllers
 {
@@ -35,17 +36,17 @@ namespace HotDogReview.WebUI.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Establishment establishment)
+        public ActionResult Create(NewEstablishmentViewModel viewModel)
         {
-            establishment.CreatedDateTime = DateTime.Now;
+            viewModel.Establishment.CreatedDateTime = DateTime.Now;
 
             // Geocodes the address.
             try
             {
                 var geocoder = new GoogleGeocodingService();
-                var coords = geocoder.GetCoordinate(establishment.Address);
-                establishment.Latitude = coords.Latitude;
-                establishment.Longitude = coords.Longitude;
+                var coords = geocoder.GetCoordinate(viewModel.Establishment.Address);
+				viewModel.Establishment.Latitude = coords.Latitude;
+				viewModel.Establishment.Longitude = coords.Longitude;
             }
             catch (Exception ex)
             {
@@ -54,18 +55,25 @@ namespace HotDogReview.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-				if (ExistsEstablishment(establishment.Name))
+				if (ExistsEstablishment(viewModel.Establishment.Name))
 				{
-					ModelState.AddModelError("", string.Format("O Estabelecimento \"{0}\" já está cadastrado", establishment.Name));
-					return View(establishment);
+					ModelState.AddModelError("", string.Format("O Estabelecimento \"{0}\" já está cadastrado", viewModel.Establishment.Name));
+					return View(viewModel);
 				}
 
-                db.Establishments.Add(establishment);
+                db.Establishments.Add(viewModel.Establishment);
                 db.SaveChanges();
+
+				viewModel.Review.EstablishmentId = viewModel.Establishment.Id;
+				viewModel.Review.CreatedDateTime = DateTime.Now;
+
+				db.Reviews.Add(viewModel.Review);
+				db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(establishment);
+            return View(viewModel);
         }
 
 		private bool ExistsEstablishment(string name)

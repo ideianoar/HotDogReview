@@ -1,4 +1,4 @@
-﻿@model HotDogReview.WebUI.Models.Establishment
+﻿@model HotDogReview.WebUI.ViewModels.NewEstablishmentViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -14,39 +14,59 @@
         <legend>HotDog</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+            @Html.LabelFor(model => model.Establishment.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+            @Html.EditorFor(model => model.Establishment.Name)
+            @Html.ValidationMessageFor(model => model.Establishment.Name)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IsVegan)
+            @Html.LabelFor(model => model.Establishment.IsVegan)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.IsVegan)
-            @Html.ValidationMessageFor(model => model.IsVegan)
+            @Html.EditorFor(model => model.Establishment.IsVegan)
+            @Html.ValidationMessageFor(model => model.Establishment.IsVegan)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
+            @Html.LabelFor(model => model.Establishment.Description)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
+            @Html.EditorFor(model => model.Establishment.Description)
+            @Html.ValidationMessageFor(model => model.Establishment.Description)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
+            @Html.LabelFor(model => model.Establishment.Address)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Address)
-            @Html.ValidationMessageFor(model => model.Address)
+            @Html.EditorFor(model => model.Establishment.Address)
+            @Html.ValidationMessageFor(model => model.Establishment.Address)
         </div>
+
+		<fieldset>
+			<legend>Avaliação</legend>
+
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Review.Rating)
+			</div>
+			<div class="editor-field">
+				<div class="rating" data-score="5"></div>
+				@Html.HiddenFor(model => Model.Review.Rating, new { id="hdnRating" })
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Review.ReviewText)
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(model => Model.Review.ReviewText)
+			</div>
+			
+		</fieldset>
 
         <p>
-            <input type="submit" value="Salvar" />
+            <input id="btnSave" type="submit" value="Salvar" />
         </p>
     </fieldset>
 }
@@ -57,4 +77,15 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+	<script type="text/javascript">
+		$('.rating').raty({
+			path: '/img'
+		});
+
+		$('#btnSave').click(function () {
+			var score = $('input[name=score]').val();
+			$('#hdnRating').val(score);
+		});
+	</script>
 }
