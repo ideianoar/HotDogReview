@@ -14,15 +14,17 @@ namespace HotDogReview.WebUI.Controllers
         private HotDogReviewEntities db = new HotDogReviewEntities();
 
         // Actions.
-        public object GetCoordinates()
+        public object GetMarkers()
         {
-            var coords = db.Establishments.Select(item => new
+            var markers = db.Establishments.Include("Reviews").ToList().Select(item => new
             {
                 lat = item.Latitude,
-                lng = item.Longitude
+                lng = item.Longitude,
+                title = item.Name,
+                averageRating = item.AverageRating
             });
 
-            return coords;
+            return markers;
         }
 
         // IDisposable methods.

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<HotDogReview.WebUI.Models.Establishment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hot Dog Review";
 }
 
-<h2>Hot Dog Review</h2>
+<h2>Barraquinhas de Dogão em Curitiba</h2>
 
-<div id="map-canvas" style="width: 340px; height: 380px;"></div>
+<div id="map-canvas" style="width: 800px; height: 380px;"></div>
 
 <ul>
     @foreach(var item in Model)
@@ -26,11 +26,20 @@
     }
 </ul>
 
+<hr />
+<p>
+    <a href="@Url.Action("Create", "Establishments")">[+] Cadastrar barraquinha</a>
+</p>
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMP3K0GDuGhuhhDkXriZcIaL2DLMYD1M&sensor=false"></script>
 
 <script>
 
     var HomeIndex = function () {
+
+        var _map,
+            _mapOverlays = [];
 
         function createMap() {
             _map = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -40,27 +49,39 @@
         }
 
         function createMarker(index, resultItem) {
-            var position = (resultItem.Position + 1).toString();
-            var coords = new google.maps.LatLng(resultItem.AddressLat, resultItem.AddressLng);
+            var coords = new google.maps.LatLng(resultItem.lat, resultItem.lng);
             var marker = new google.maps.Marker({
                 position: coords,
-                title: position + ' - ' + resultItem.ProfessionalName,
-                icon: '/handlers/numberedmark.ashx?n=' + position });
-            google.maps.event.addListener(marker, "mouseover", function() {
-                $('.lista-grid').eq(index).css('background-color', '#F8F8F8');
-            });
-            google.maps.event.addListener(marker, "mouseout", function() {
-                $('.lista-grid').eq(index).css('background-color', '');
-            });
+                title: resultItem.title + ' - ' + resultItem.averageRating });
             return marker;
         }
 
         function init() {
             createMap();
+            setMarkers();
         }
 
         function setMarkers() {
-            
+            $.get('/Api/EstablishmentsApi/GetMarkers/', function (data) {
+                _mapOverlays = [];
+                debugger;
+                $.each(data, function (index, item) {
+                    var marker = createMarker(index, item);
+                    marker.setMap(_map)
+                    _mapOverlays.push(marker);
+                });
+                if (_mapOverlays.length) {
+                    var bounds = new google.maps.LatLngBounds();
+                    for (var i = 0; i < _mapOverlays.length; i++) {
+                         bounds.extend(_mapOverlays[i].position);
+                    }
+                    _map.fitBounds(bounds);
+                    var listener = google.maps.event.addListener(_map, "idle", function() { 
+                        if (_map.getZoom() > 16) _map.setZoom(16); 
+                        google.maps.event.removeListener(listener); 
+                    });
+                }
+            });
         }
 
         return {

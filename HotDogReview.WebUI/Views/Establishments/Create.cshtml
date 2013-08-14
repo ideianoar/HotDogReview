@@ -4,14 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Nova Barraquinha</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>HotDog</legend>
+        <legend>Barraquinha</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Establishment.Name)
@@ -72,7 +72,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("< Lista de Barraquinhas", "Index")
 </div>
 
 @section Scripts {
