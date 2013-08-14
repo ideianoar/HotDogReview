@@ -20,7 +20,6 @@ namespace HotDogReview.WebUI.Models
 
                 return 0D;
             }
-
         }
     }
 

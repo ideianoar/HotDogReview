@@ -9,8 +9,17 @@
 <ul>
     @foreach(var item in Model)
     {
-    <li>
-
-    </li>
+        <li>
+            <h4>@item.Name</h4>
+            <p>
+                Nota @item.AverageRating (@item.Reviews.Count() avaliações)
+            </p>
+            <p>
+                Endereço: @(item.Address ?? "<sem endereço>")
+            </p>
+            <p>
+                @(item.Description ?? "<sem descrição>")
+            </p>
+        </li>
     }
 </ul>
