@@ -274,6 +274,7 @@
     <Content Include="Views\Establishments\Edit.cshtml" />
     <Content Include="Views\Establishments\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

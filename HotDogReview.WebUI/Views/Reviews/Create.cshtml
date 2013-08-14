@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Nova Avaliação";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model HotDogReview.WebUI.Models.Review
+
+<h2>Nova Avaliação</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Avaliação</legend>
+
+        <div class="editor-label">
+            <label>Nome do HotDog</label>
+        </div>
+        <div class="editor-field">
+            <span>@ViewBag.EstablishmentName</span>
+        </div>
+
+		@Html.HiddenFor(model => model.EstablishmentId)
+		<div class="editor-label">
+			@Html.LabelFor(model => model.Rating)
+		</div>
+		<div class="editor-field">
+			<div class="rating" data-score="5"></div>
+			@Html.HiddenFor(model => Model.Rating, new { id="hdnRating" })
+		</div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ReviewText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReviewText)
+            @Html.ValidationMessageFor(model => model.ReviewText)
+        </div>
+
+        <p>
+            <input id="btnSave" type="submit" value="Salvar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("< Lista de Barraquinhas", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+	<script type="text/javascript">
+		$('.rating').raty({
+			path: '/img'
+		});
+
+		$('#btnSave').click(function () {
+			var score = $('input[name=score]').val();
+			$('#hdnRating').val(score);
+		});
+	</script>
+}
+

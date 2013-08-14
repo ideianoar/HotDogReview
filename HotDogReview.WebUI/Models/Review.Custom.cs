@@ -16,6 +16,7 @@ namespace HotDogReview.WebUI.Models
 	{
 		[Display(Name="Nota da Avaliação")]
 		[Required(ErrorMessage="Informe uma nota de avaliação para o HotDog")]
+		[Range(1, 5, ErrorMessage = "Informe uma nota de avaliação para o HotDog")]
 		public short Rating { get; set; }
 
 		[Display(Name="Comentário")]

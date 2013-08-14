@@ -8,13 +8,17 @@
 
 <div id="map-canvas" style="width: 800px; height: 380px;"></div>
 
+<p>
+    <a href="@Url.Action("Create", "Establishments")">[+] Cadastrar barraquinha</a>
+</p>
+
 <ul>
     @foreach(var item in Model)
     {
         <li>
             <h4>@item.Name</h4>
             <p>
-                Nota @item.AverageRating (@item.Reviews.Count() avaliações)
+                Nota @item.AverageRating (@item.Reviews.Count() avaliações) | <a href="@Url.Action("Create", "Reviews", new { id=@item.Id })">Avaliar</a>
             </p>
             <p>
                 Endereço: @(item.Address ?? "<sem endereço>")
@@ -27,9 +31,6 @@
 </ul>
 
 <hr />
-<p>
-    <a href="@Url.Action("Create", "Establishments")">[+] Cadastrar barraquinha</a>
-</p>
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMP3K0GDuGhuhhDkXriZcIaL2DLMYD1M&sensor=false"></script>
