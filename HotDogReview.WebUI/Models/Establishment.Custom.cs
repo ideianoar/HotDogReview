@@ -9,6 +9,19 @@ namespace HotDogReview.WebUI.Models
     [MetadataType(typeof(EstablishmentMetadata))]
     public partial class Establishment
     {
+        public double AverageRating
+        {
+            get
+            {
+                if (this.Reviews != null)
+                {
+                    return Reviews.Average(r => r.Rating);
+                }
+
+                return 0D;
+            }
+
+        }
     }
 
     public class EstablishmentMetadata
