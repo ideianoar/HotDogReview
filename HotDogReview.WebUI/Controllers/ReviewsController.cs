@@ -8,13 +8,9 @@ namespace HotDogReview.WebUI.Controllers
 {
     public class ReviewsController : Controller
     {
-        //
-        // GET: /Reviews/
-
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

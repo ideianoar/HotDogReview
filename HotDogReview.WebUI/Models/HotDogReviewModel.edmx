@@ -23,6 +23,8 @@
           <Property Name="Description" Type="nvarchar" MaxLength="1000" />
           <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
           <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Reviews">
           <Key>
@@ -69,6 +71,8 @@
           <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Reviews" Relationship="HotDogReviewModel.FK_Reviews_Establishments" FromRole="Establishments" ToRole="Reviews" />
           <Property Type="String" Name="Address" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="Latitude" Nullable="false" />
+          <Property Type="Double" Name="Longitude" Nullable="false" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -102,6 +106,8 @@
           <EntitySetMapping Name="Establishments">
             <EntityTypeMapping TypeName="HotDogReviewModel.Establishment">
               <MappingFragment StoreEntitySet="Establishments">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

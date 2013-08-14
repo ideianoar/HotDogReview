@@ -13,6 +13,18 @@ namespace HotDogReview.WebUI.Controllers
         // Fields.
         private HotDogReviewEntities db = new HotDogReviewEntities();
 
+        // Actions.
+        public object GetCoordinates()
+        {
+            var coords = db.Establishments.Select(item => new
+            {
+                lat = item.Latitude,
+                lng = item.Longitude
+            });
+
+            return coords;
+        }
+
         // IDisposable methods.
         protected override void Dispose(bool disposing)
         {

@@ -25,6 +25,8 @@ namespace HotDogReview.WebUI.Models
         public string Description { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
         public string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     
         public virtual ICollection<Review> Reviews { get; set; }
     }

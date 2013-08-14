@@ -46,17 +46,21 @@
                 position: coords,
                 title: position + ' - ' + resultItem.ProfessionalName,
                 icon: '/handlers/numberedmark.ashx?n=' + position });
-        }
-
-        function geocodeAddress(address, callback) {
-            $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address), function (data) {
-                var location = data.results[0].geometry.location;
-                callback && callback({ lat: location.lat, lng: location.lng });
+            google.maps.event.addListener(marker, "mouseover", function() {
+                $('.lista-grid').eq(index).css('background-color', '#F8F8F8');
             });
+            google.maps.event.addListener(marker, "mouseout", function() {
+                $('.lista-grid').eq(index).css('background-color', '');
+            });
+            return marker;
         }
 
         function init() {
             createMap();
+        }
+
+        function setMarkers() {
+            
         }
 
         return {
