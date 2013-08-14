@@ -4,7 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Hot Dog Review</h2>
+
+<div id="map-canvas" style="width: 340px; height: 380px;"></div>
 
 <ul>
     @foreach(var item in Model)
@@ -23,3 +25,46 @@
         </li>
     }
 </ul>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMP3K0GDuGhuhhDkXriZcIaL2DLMYD1M&sensor=false"></script>
+
+<script>
+
+    var HomeIndex = function () {
+
+        function createMap() {
+            _map = new google.maps.Map(document.getElementById("map-canvas"), {
+                center: new google.maps.LatLng(-25.4166667, -49.25),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP });
+        }
+
+        function createMarker(index, resultItem) {
+            var position = (resultItem.Position + 1).toString();
+            var coords = new google.maps.LatLng(resultItem.AddressLat, resultItem.AddressLng);
+            var marker = new google.maps.Marker({
+                position: coords,
+                title: position + ' - ' + resultItem.ProfessionalName,
+                icon: '/handlers/numberedmark.ashx?n=' + position });
+        }
+
+        function geocodeAddress(address, callback) {
+            $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address), function (data) {
+                var location = data.results[0].geometry.location;
+                callback && callback({ lat: location.lat, lng: location.lng });
+            });
+        }
+
+        function init() {
+            createMap();
+        }
+
+        return {
+            init: init
+        };
+
+    } ();
+
+    HomeIndex.init();
+
+</script>
