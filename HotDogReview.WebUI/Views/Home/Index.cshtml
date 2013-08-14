@@ -64,7 +64,6 @@
         function setMarkers() {
             $.get('/Api/EstablishmentsApi/GetMarkers/', function (data) {
                 _mapOverlays = [];
-                debugger;
                 $.each(data, function (index, item) {
                     var marker = createMarker(index, item);
                     marker.setMap(_map)

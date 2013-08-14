@@ -41,10 +41,11 @@
             @Html.LabelFor(model => model.Establishment.Address)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Establishment.Address)
+            @Html.TextBoxFor(model => model.Establishment.Address, new { style = "width: 400px" })
             @Html.ValidationMessageFor(model => model.Establishment.Address)
         </div>
-
+        <br />
+        <br />
 		<fieldset>
 			<legend>Avaliação</legend>
 
@@ -88,4 +89,25 @@
 			$('#hdnRating').val(score);
 		});
 	</script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script>
+        function createAddressAutocomplete() {
+            var input = document.getElementById('Establishment_Address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addDomListener(input, 'keydown', function(e) { 
+                if (e.keyCode == 13) {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    else {
+                        // Handle early IE versions.
+                        e.cancelBubble = true;
+                        e.returnValue = false;
+                    }
+                }
+            });
+        }
+        createAddressAutocomplete();
+    </script>
 }

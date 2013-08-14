@@ -45,7 +45,7 @@
             @Html.LabelFor(model => model.Address)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Address)
+            @Html.TextBoxFor(model => model.Address, new { style = "width: 400px" })
             @Html.ValidationMessageFor(model => model.Address)
         </div>
 
@@ -61,4 +61,25 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script>
+        function createAddressAutocomplete() {
+            var input = document.getElementById('Address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addDomListener(input, 'keydown', function(e) { 
+                if (e.keyCode == 13) {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    else {
+                        // Handle early IE versions.
+                        e.cancelBubble = true;
+                        e.returnValue = false;
+                    }
+                }
+            });
+        }
+        createAddressAutocomplete();
+    </script>
 }
