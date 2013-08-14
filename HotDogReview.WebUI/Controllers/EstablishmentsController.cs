@@ -40,6 +40,12 @@ namespace HotDogReview.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
+				if (ExistsEstablishment(establishment.Name))
+				{
+					ModelState.AddModelError("", string.Format("O Estabelecimento \"{0}\" já está cadastrado", establishment.Name));
+					return View(establishment);
+				}
+
                 db.Establishments.Add(establishment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -47,6 +53,12 @@ namespace HotDogReview.WebUI.Controllers
 
             return View(establishment);
         }
+
+		private bool ExistsEstablishment(string name)
+		{
+			return db.Establishments.FirstOrDefault(entity => entity.Name.Equals(name.Trim(), StringComparison.InvariantCultureIgnoreCase)) != null;
+		}
+
         public ActionResult Edit(int id = 0)
         {
             Establishment establishment = db.Establishments.Find(id);

@@ -156,7 +156,9 @@
     <Compile Include="Models\Review.cs">
       <DependentUpon>HotDogReviewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Review.Custom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\NewEstablishmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\HotDogReview.sdf" />
